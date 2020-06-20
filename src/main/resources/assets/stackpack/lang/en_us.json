@@ -6,5 +6,8 @@
   "msg.stackpack.packer.error.hasnbt":        "For now, the packer cannot work with items/blocks that store NBT data.",
   "msg.stackpack.packer.error.notempty":      "You cannot perform this operation on a non-empty packer.",
   "msg.stackpack.packer.configuredto":        "Set configured item/block to: %s",
-  "msg.stackpack.packer.error.notconfigured": "Please configure this packer first."
+  "msg.stackpack.packer.error.notconfigured": "Please configure this packer first.",
+  "tooltip.stackpack.packer.mode":            "Mode: %s",
+  "tooltip.stackpack.packer.item":            "Storing: %s",
+  "tooltip.stackpack.packer.count":           "%s/%s stored"
 }

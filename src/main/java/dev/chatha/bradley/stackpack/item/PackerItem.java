@@ -1,6 +1,8 @@
 package dev.chatha.bradley.stackpack.item;
 
 import dev.chatha.bradley.stackpack.StackPackMod;
+import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.*;
@@ -8,11 +10,15 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import javax.annotation.Nullable;
+import java.util.List;
 
 enum PackerMode
 {
@@ -68,6 +74,20 @@ public class PackerItem extends Item
                 .setNoRepair()
         );
         super.setRegistryName("stackpack", "packer");
+    }
+
+    @Override
+    public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn)
+    {
+        if(worldIn.isRemote())
+            return;
+
+        final CompoundNBT nbt = stack.getOrCreateTag();
+        I18n.format("tooltip.stackpack.packer.mode",  PackerMode.fromValue(nbt.getInt(NBT_MODE)).getName());
+        I18n.format("tooltip.stackpack.packer.item",  nbt.getString(NBT_CONFIGURED_ITEM));
+        I18n.format("tooltip.stackpack.packer.count", nbt.getInt(NBT_PACKED), MAX_PACK_SIZE);
+
+        super.addInformation(stack, worldIn, tooltip, flagIn);
     }
 
     @Override
