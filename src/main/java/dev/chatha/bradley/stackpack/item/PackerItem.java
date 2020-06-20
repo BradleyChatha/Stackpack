@@ -79,13 +79,10 @@ public class PackerItem extends Item
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn)
     {
-        if(worldIn.isRemote())
-            return;
-
         final CompoundNBT nbt = stack.getOrCreateTag();
-        I18n.format("tooltip.stackpack.packer.mode",  PackerMode.fromValue(nbt.getInt(NBT_MODE)).getName());
-        I18n.format("tooltip.stackpack.packer.item",  nbt.getString(NBT_CONFIGURED_ITEM));
-        I18n.format("tooltip.stackpack.packer.count", nbt.getInt(NBT_PACKED), MAX_PACK_SIZE);
+        tooltip.add(new TranslationTextComponent("tooltip.stackpack.packer.mode", PackerMode.fromValue(nbt.getInt(NBT_MODE)).getName()));
+        tooltip.add(new TranslationTextComponent("tooltip.stackpack.packer.item", nbt.getString(NBT_CONFIGURED_ITEM)));
+        tooltip.add(new TranslationTextComponent("tooltip.stackpack.packer.count", nbt.getInt(NBT_PACKED), MAX_PACK_SIZE));
 
         super.addInformation(stack, worldIn, tooltip, flagIn);
     }
